@@ -1,0 +1,43 @@
+/*Employee*/
+body#employee #action {
+    display: none;
+}
+
+body#employee #operation {
+    top: 58px;
+}
+
+body#employee #create-store-button, body#employee #create-store-button, body#employee .edit-store-button {
+    display: none;
+}
+
+body#employee .tab[data-type="receipt-wrapper"], body#employee #body-wrapper span {
+    display: none
+}
+
+body#employee #create-employee-button, .table-container td:nth-of-type(5), .table-container th:nth-of-type(5) {
+    display: none;
+}
+/*Employee*/
+
+/*Read*/
+body#read #action {
+    display: none;
+}
+
+body#read #operation {
+    display: none;
+}
+
+body#read #create-store-button, body#read #create-store-button, body#read .edit-store-button {
+    display: none;
+}
+
+body#read .tab[data-type="receipt-wrapper"], body#read #body-wrapper span, body#read #create-transactions-button {
+    display: none
+}
+
+body#read #create-employee-button, .table-container td:nth-of-type(5), .table-container th:nth-of-type(5) {
+    display: none;
+}
+/*Read*/

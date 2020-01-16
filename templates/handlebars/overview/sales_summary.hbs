@@ -1,0 +1,77 @@
+<div id="sales-summary-container">
+    <div>
+        <h3>NET SALES</h3>
+        <ul>
+            <li>
+                <label>Cash</label>
+                <span>{{total_cash}}</span>
+            </li>
+            <li>
+                <label>Credit</label>
+                <span>{{total_credit}}</span>
+            </li>
+            {{#ifCond american_quantity '>' 0}}
+                <li>
+                    <label>American Express</label>
+                    <span>{{total_american}}</span>
+                </li>
+            {{/ifCond}}
+            {{#ifCond discover_quantity '>' 0}}
+                <li>
+                    <label>Discover</label>
+                    <span>{{total_discover}}</span>
+                </li>
+            {{/ifCond}}
+            {{#ifCond master_quantity '>' 0}}
+                <li>
+                    <label>MasterCard</label>
+                    <span>{{total_master}}</span>
+                </li>
+            {{/ifCond}}
+            {{#ifCond visa_quantity '>' 0}}
+                <li>
+                    <label>Visa</label>
+                    <span>{{total_visa}}</span>
+                </li>
+            {{/ifCond}}
+        </ul>
+    </div>
+    <div>
+        <h3>TOTAL TRANSACTIONS: {{total_transactions}}</h3>
+        <ul>
+            <li>
+                <label>Cash Transactions</label>
+                <span>{{cash_quantity}}</span>
+            </li>
+            <li>
+                <label>Credit Transactions</label>
+                <span>{{credit_quantity}}</span>
+            </li>
+            {{#ifCond american_quantity '>' 0}}
+                <li>
+                    <label>American Express</label>
+                    <span>{{american_quantity}}</span>
+                </li>
+            {{/ifCond}}
+            {{#ifCond discover_quantity '>' 0}}
+                <li>
+                    <label>Discover</label>
+                    <span>{{discover_quantity}}</span>
+                </li>
+            {{/ifCond}}
+            {{#ifCond master_quantity '>' 0}}
+                <li>
+                    <label>MasterCard</label>
+                    <span>{{master_quantity}}</span>
+                </li>
+            {{/ifCond}}
+            {{#ifCond visa_quantity '>' 0}}
+                <li>
+                    <label>Visa</label>
+                    <span>{{visa_quantity}}</span>
+                </li>
+            {{/ifCond}}
+        </ul>
+    </div>
+</div>
+

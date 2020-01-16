@@ -1,0 +1,75 @@
+<div class="popup" id="damaged-wrapper" data-id="{{store.id}}">
+
+    <div id="damaged-container">
+        <div id="choose-step">
+            <div class="header-wrapper">
+                <h4>DAMAGED</h4>
+                <button id="exit-button">
+                    <div><i class="far fa-times-circle"></i></div>
+                    <div>esc</div>
+                </button>
+            </div>
+
+            <p>Choose an item that was damaged.</p>
+
+            <div id="popup-inventory-wrapper">
+                <table id="inventory-table" class="table-container popup-table">
+                    <thead>
+                        <tr>
+                            {{#each store.columns}}
+                                <th class="custom-column" data-value="{{this}}">{{this}}</th>
+                            {{/each}}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each store.inventory}}
+                            <tr data-id="{{this.[0]}}">
+                                {{tableHandler this.[1] ../store.columns}}
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="damaged-step">
+            <div id="damaged-scroll-wrapper">
+                <div class="header-wrapper">
+                    <h4>DAMAGED</h4>
+                    <button id="exit-button">
+                        <div><i class="far fa-times-circle"></i></div>
+                        <div>esc</div>
+                    </button>
+                </div>
+
+                <p>How many was damaged?</p>
+                <p class="error"></p>
+                <table id="inventory-table" class="table-container popup-table">
+                    <thead>
+                        <tr>
+                            {{#each store.columns}}
+                                <th class="custom-column" data-value="{{this}}">{{this}}</th>
+                            {{/each}}
+                        </tr>
+                    </thead>
+                    <tbody id="damaged-tbody">
+
+                    </tbody>
+                </table>
+
+                <div id="damaged-form">
+                    <label for="damaged-input">Quantity</label>
+                    <input type="number" id="damaged-input" min="1" class="operation-text-input" />
+                    <label>Memo</label>
+                    <textarea id="details-input" class="operation-textarea-input"></textarea>
+                </div>
+            </div>
+
+            <div id="submit-wrapper">
+                <button class="prev-step" id="no-submit" data-step="damaged-step">Back</button>
+                <button id="damaged-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

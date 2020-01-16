@@ -1,0 +1,19 @@
+{{#if store.columns}}
+    <table id="inventory-table" class="table-container {{#if edit}}popup-table{{/if}}">
+        <thead>
+            <tr>
+                {{#each store.columns}}
+                    <th class="custom-column" data-value="{{this}}">{{this}}</th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each store.inventory}}
+                <tr data-id="{{this.[0]}}">
+                    {{tableHandler this.[1] ../store.columns}}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{/if}}

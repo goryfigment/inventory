@@ -1,0 +1,33 @@
+<div class="popup" id="export-inventory-wrapper" data-id="{{id}}">
+    <div id="export-inventory-container">
+        <div class="header-wrapper">
+            <h4>EXPORT</h4>
+            <button id="exit-button">
+                <div><i class="far fa-times-circle"></i></div>
+                <div>esc</div>
+            </button>
+        </div>
+
+        <p>Export as a excel file, csv file, or json.</p>
+        <p id="error"></p>
+
+        <div id="button-wrapper">
+            <button id="json-button">
+                <i class="fas fa-file-code"></i>
+                <h4>JSON</h4>
+            </button>
+
+            <button id="excel-button">
+                <i class="fas fa-file-excel"></i>
+                <h4>EXCEL</h4>
+            </button>
+
+            <button id="csv-button">
+                <i class="fas fa-file-csv"></i>
+                <h4>CSV</h4>
+            </button>
+        </div>
+
+        <a id="export-link"></a>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="transaction-item" data-id="{{id}}">
+    <div class="delete-button"><i class="fas fa-times"></i></div>
+    <div class="transaction-heading"><span class="transaction-name">{{name}}</span><span class="transaction-price">{{price}}</span></div>
+    <div class="transaction-quantity">{{barcode}} (<input class="quantity-input" type="number" value="1" min="1" data-each="{{price}}" /> <span class="each-text">@ {{price}} ea)</span></div>
+    <div class="discount-wrapper">
+        <div class="discount">0.00</div>
+    </div>
+    <div id="discount-submit-wrapper">
+        $ <input class="discount-money-input" type="text" placeholder="0.00">   or
+        <input class="discount-percent-input" type="text" placeholder="00">% off
+        <span class="discount-submit"><i class="fas fa-check"></i></span>
+        <span class="discount-cancel"><i class="fas fa-ban"></i></span>
+    </div>
+    <div class="discount-button active"><span class="discount-plus-icon"><i class="fas fa-plus"></i></span> Add Discount</div>
+</div>

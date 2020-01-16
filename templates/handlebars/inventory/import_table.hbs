@@ -1,0 +1,23 @@
+<table id="import-table" class="table-container">
+    <thead>
+        <tr>
+            {{#each headers}}
+                <th><input class="header-input" value="{{this}}" data-column="{{@index}}" style="width: 12ch" /></th>
+            {{/each}}
+        </tr>
+        <tr>
+            {{#each headers}}
+                <th><input class="include-input" type="checkbox" data-column="{{@index}}" checked /> Include</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+            <tr>
+                {{#each this}}
+                    <td class="included">{{this}}</td>
+                {{/each}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

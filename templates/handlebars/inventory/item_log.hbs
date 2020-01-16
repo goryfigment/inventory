@@ -1,0 +1,39 @@
+{{#each store.item_log}}
+        <time>{{datetime}}</time>
+        <table class="table-container">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Name</th>
+                    <th>Change</th>
+                    <th>Date</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each logs}}
+                    <tr data-id="{{this.id}}">
+                        <td>{{this.user__first_name}} {{this.user__last_name}}</td>
+                        <td>
+                            {{#ifCond operation '==' ''}}
+                                {{action}}
+                            {{else}}
+                                {{operation}}
+                            {{/ifCond}}
+                        </td>
+                        <td>{{item_name}}</td>
+                        <td class="number-column">
+                            {{#ifCond operation '==' 'Received'}}<b class="plus">+</b>{{/ifCond}}
+                            {{#ifCond operation '==' 'Damaged'}}<b class="minus">-</b>{{/ifCond}}
+                            {{change}}
+                        </td>
+                        <td>{{timestamp}}</td>
+                        <td class="details-icon {{#ifCond details.notes "!=" ""}}active tippy" data-title="{{details.notes}}"{{else}}"{{/ifCond}}><i class="fas fa-file-alt"></i></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{/each}}

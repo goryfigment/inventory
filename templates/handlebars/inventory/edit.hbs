@@ -1,0 +1,35 @@
+<div class="popup" id="edit-inventory-wrapper" data-id="{{id}}">
+    <div class="header-wrapper">
+        <h4>EDIT</h4>
+        <button id="exit-button">
+            <div><i class="far fa-times-circle"></i></div>
+            <div>esc</div>
+        </button>
+    </div>
+
+    <p>Select a column or row to edit.</p>
+
+    <div>
+        <p id="instructions">Press '<b>ENTER</b>' to submit or exit EDIT MODE.</p>
+        <p class="error"></p>
+    </div>
+    <div id="popup-inventory-wrapper">
+        <table id="inventory-table" class="table-container popup-table">
+            <thead>
+                <tr>
+                    {{#each store.columns}}
+                        <th class="custom-column" data-value="{{this}}">{{this}}</th>
+                    {{/each}}
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each store.inventory}}
+                    <tr data-id="{{this.[0]}}">
+                        {{tableHandler this.[1] ../store.columns}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

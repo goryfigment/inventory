@@ -1,0 +1,60 @@
+<div class="popup" id="add-inventory-wrapper" data-id="{{id}}">
+    <div>
+        <h4>ADD</h4>
+
+        <div id="action-wrapper">
+            <div class="next-step add-action-button" data-step="column-step">
+                <h5>CREATE COLUMN</h5>
+                <p>Create a column that defines a set of data values of a particular type.</p>
+                <div>
+                    <span><i class="fas fa-table"></i></span>
+                    <span><i class="fas fa-arrows-alt-v"></i></span>
+                </div>
+            </div>
+            <div class="next-step add-action-button" data-step="row-step">
+                <h5>CREATE ROW</h5>
+                <p>Create a row that contains values for multiple fields defined by columns.</p>
+                <div>
+                    <span><i class="fas fa-table"></i></span>
+                    <span><i class="fas fa-arrows-alt-h"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="column-step">
+        <div id="form-wrapper">
+            <h4>CREATE COLUMN</h4>
+
+            <div id="center-input">
+                <label for="column-name">COLUMN NAME<i class="error"></i></label>
+                <input id="column-name" placeholder="Enter a column name" />
+            </div>
+        </div>
+
+        <div id="submit-wrapper">
+            <button class="prev-step" id="no-submit" data-step="column-step">Back</button>
+            <button id="create-column-submit">Create</button>
+        </div>
+    </div>
+
+    <div id="row-step">
+        <div id="form-wrapper">
+            <h4>CREATE ROW</h4>
+
+            <div id="multiple-inputs">
+                {{#each columns}}
+                    <div>
+                        <label>{{this}}<i class="error"></i></label>
+                        <input class="row-input" data-column="{{this}}" />
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <div id="submit-wrapper">
+            <button class="prev-step" id="no-submit" data-step="row-step">Back</button>
+            <button id="create-row-submit">Create</button>
+        </div>
+    </div>
+</div>

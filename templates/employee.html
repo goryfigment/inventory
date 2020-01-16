@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee</title>
+    <link rel='shortcut icon' type='image/x-icon' href="{% static 'bundle/assets/whey2ez/whey2ez.ico' %}" />
+
+    <script>
+        var globals = {};
+        globals.base_url = '{{base_url}}';
+        globals.stores = {{stores|safe}};
+    </script>
+</head>
+<body id="{{ user_type }}">
+    {% csrf_token %}
+    <div id="flex-wrapper">
+{#        Side NAV#}
+        <%= require('html-loader!./partial/side_nav.html') %>
+{#        Side NAV#}
+{#        Side BAR#}
+        <%= require('html-loader!./partial/side_bar.html') %>
+{#        Side BAR#}
+{#        BODY#}
+        <div id="body-wrapper">
+            <nav>
+                <ol>
+                    <li class="tab active" data-type="employee-wrapper"><b>Employee</b></li>
+                </ol>
+                <div id="nav-wrapper">
+                    <span class="nav-links" id="account-link">Account</span>
+                    <div id="account-wrapper">
+                        <div>{{ name }}
+                            <span id="username">{{ username }}</span>
+                        </div>
+                        <div class="account-links" id="logout-link"><span id="logout-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</div>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="employee-wrapper" class="active-tab"></div>
+        </div>
+    </div>
+
+    <div id="overlay"></div>
+</body>
+</html>

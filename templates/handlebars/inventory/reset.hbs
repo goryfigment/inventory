@@ -1,0 +1,136 @@
+<div class="popup" id="reset-wrapper" data-id="{{store.id}}">
+
+    <div id="reset-container">
+        <div id="choose-step">
+            <div class="header-wrapper">
+                <h4>RESET</h4>
+                <button id="exit-button">
+                    <div><i class="far fa-times-circle"></i></div>
+                    <div>esc</div>
+                </button>
+            </div>
+
+            <p>Choose an item that to reset price or cost.</p>
+
+            <div id="popup-inventory-wrapper">
+                <table id="inventory-table" class="table-container popup-table">
+                    <thead>
+                        <tr>
+                            {{#each store.columns}}
+                                <th class="custom-column" data-value="{{this}}">{{this}}</th>
+                            {{/each}}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each store.inventory}}
+                            <tr data-id="{{this.[0]}}">
+                                {{tableHandler this.[1] ../store.columns}}
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="select-step">
+            <div class="header-wrapper">
+                <h4>RESET</h4>
+                <button id="exit-button">
+                    <div><i class="far fa-times-circle"></i></div>
+                    <div>esc</div>
+                </button>
+            </div>
+
+            <p>Choose an item that to reset price or cost.</p>
+
+            <table id="inventory-table" class="table-container popup-table select-table">
+                <thead>
+                    <tr>
+                        {{#each store.columns}}
+                            <th class="custom-column" data-value="{{this}}">{{this}}</th>
+                        {{/each}}
+                    </tr>
+                </thead>
+                <tbody id="select-tbody">
+
+                </tbody>
+            </table>
+
+            <div id="reset-select-wrapper">
+                <div id="price-selection" class="reset-next-step" data-step="price-step">
+                    <h5>RESET PRICE</h5>
+                    <p>Change the price of<br/> an item.</p>
+                    <div><i class="fas fa-dollar-sign"></i></div>
+                </div>
+                <div id="cost-selection" class="reset-next-step" data-step="cost-step">
+                    <h5>RESET COST</h5>
+                    <p>Change the cost of<br/> an item.</p>
+                    <div><i class="fas fa-hand-holding-usd"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="price-step">
+            <div id="price-scroll-wrapper">
+                <div class="header-wrapper">
+                    <h4>PRICE RESET</h4>
+                    <button id="exit-button">
+                        <div><i class="far fa-times-circle"></i></div>
+                        <div>esc</div>
+                    </button>
+                </div>
+
+                <p>What is the new price?</p>
+                <p class="error"></p>
+
+                <div id="price-table-wrapper">
+
+                </div>
+
+                <div id="price-form">
+                    <label for="price-input">PRICE</label>
+                    <input type="number" id="price-input" min="1" class="operation-text-input" />
+                    <label>Memo</label>
+                    <textarea id="details-input" class="operation-textarea-input"></textarea>
+                </div>
+            </div>
+
+            <div id="submit-wrapper">
+                <button class="prev-step" id="no-submit" data-step="price-step" data-multiplier="2">Back</button>
+                <button id="price-submit">Submit</button>
+            </div>
+        </div>
+
+        <div id="cost-step">
+            <div id="cost-scroll-wrapper">
+                <div class="header-wrapper">
+                    <h4>COST RESET</h4>
+                    <button id="exit-button">
+                        <div><i class="far fa-times-circle"></i></div>
+                        <div>esc</div>
+                    </button>
+                </div>
+
+                <p>What is the new cost?</p>
+                <p class="error"></p>
+
+                <div id="cost-table-wrapper">
+
+                </div>
+
+                <div id="cost-form">
+                    <label for="cost-input">COST</label>
+                    <input type="number" id="cost-input" min="1" class="operation-text-input" />
+                    <label>Memo</label>
+                    <textarea id="details-input" class="operation-textarea-input"></textarea>
+                </div>
+            </div>
+
+            <div id="submit-wrapper">
+                <button class="prev-step" id="no-submit" data-step="cost-step" data-multiplier="2">Back</button>
+                <button id="cost-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

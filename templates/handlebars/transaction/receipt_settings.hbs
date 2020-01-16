@@ -1,0 +1,212 @@
+<div id="receipt-settings-wrapper">
+    <div class="receipt-super-title">Settings</div>
+    <div class="receipt-scroll-wrapper">
+        <div id="printer-address-wrapper">
+            <div class="receipt-settings-title">Network Connection</div>
+            <label for="printer-address">Printer address: </label>
+            {{#each ip_address}}
+                <input class="printer-address" value="{{this}}" />
+
+                {{#ifCond @index '!=' 3}}
+                    <span class="period">.</span>
+                {{/ifCond}}
+            {{/each}}
+        </div>
+
+        <div id="header-input-wrapper">
+            <div class="receipt-settings-title">Receipt Header</div>
+            <div id="header-container" class="line-container">
+                {{#each header.lines}}
+                    <div class="header-item receipt-input-wrapper" data-number="{{inc @index}}" data-type="header">
+                        <div class="delete-line-item">x</div>
+                        <div class="receipt-input-container">
+                            <label for="font-size-input">Font Size</label>
+                            <select class="font-size-input">
+                                <option value="1" {{#ifCond size '==' '1'}}selected{{/ifCond}}>12</option>
+                                <option value="2" {{#ifCond size '==' '2'}}selected{{/ifCond}}>24</option>
+                                <option value="3" {{#ifCond size '==' '3'}}selected{{/ifCond}}>36</option>
+                                <option value="4" {{#ifCond size '==' '4'}}selected{{/ifCond}}>48</option>
+                                <option value="5" {{#ifCond size '==' '5'}}selected{{/ifCond}}>60</option>
+                                <option value="6" {{#ifCond size '==' '6'}}selected{{/ifCond}}>72</option>
+                                <option value="7" {{#ifCond size '==' '7'}}selected{{/ifCond}}>84</option>
+                                <option value="8" {{#ifCond size '==' '8'}}selected{{/ifCond}}>96</option>
+                            </select>
+                        </div>
+                        <div class="receipt-input-container">
+                            <label for="font-alignment-input">Font Alignment</label>
+                            <select class="font-alignment-input">
+                                <option value="left" {{#ifCond align '==' 'left'}}selected{{/ifCond}}>Left</option>
+                                <option value="center" {{#ifCond align '==' 'center'}}selected{{/ifCond}}>Center</option>
+                                <option value="right" {{#ifCond align '==' 'right'}}selected{{/ifCond}}>Right</option>
+                            </select>
+                        </div>
+                        <div class="receipt-input-container">
+                            <label class="receipt-text-label" for="receipt-text-input">Text (Line {{inc @index}})</label>
+                            <input class="receipt-text-input" value="{{text}}" />
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="header-item receipt-input-wrapper" data-number="1" data-type="header">
+                        <div class="delete-line-item">x</div>
+                        <div class="receipt-input-container">
+                            <label for="font-size-input">Font Size</label>
+                            <select class="font-size-input">
+                                <option value="1">12</option>
+                                <option value="2">24</option>
+                                <option value="3">36</option>
+                                <option value="4">48</option>
+                                <option value="5">60</option>
+                                <option value="6">72</option>
+                                <option value="7">84</option>
+                                <option value="8">96</option>
+                            </select>
+                        </div>
+                        <div class="receipt-input-container">
+                            <label for="font-alignment-input">Font Alignment</label>
+                            <select class="font-alignment-input">
+                                <option value="left">Left</option>
+                                <option value="center">Center</option>
+                                <option value="right">Right</option>
+                            </select>
+                        </div>
+                        <div class="receipt-input-container">
+                            <label class="receipt-text-label" for="receipt-text-input">Text (Line 1)</label>
+                            <input class="receipt-text-input" />
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            <div id="add-header-button">Add</div>
+        </div>
+
+        <div id="footer-input-wrapper">
+            <div class="receipt-settings-title">Receipt Footer</div>
+            <div id="footer-container" class="line-container">
+                {{#each footer.lines}}
+                    <div class="footer-item receipt-input-wrapper" data-number="{{inc @index}}" data-type="footer">
+                        <div class="delete-line-item">x</div>
+                        <div class="receipt-input-container">
+                            <label for="font-size-input">Font Size</label>
+                            <select class="font-size-input">
+                                <option value="1" {{#ifCond size '==' '1'}}selected{{/ifCond}}>12</option>
+                                <option value="2" {{#ifCond size '==' '2'}}selected{{/ifCond}}>24</option>
+                                <option value="3" {{#ifCond size '==' '3'}}selected{{/ifCond}}>36</option>
+                                <option value="4" {{#ifCond size '==' '4'}}selected{{/ifCond}}>48</option>
+                                <option value="5" {{#ifCond size '==' '5'}}selected{{/ifCond}}>60</option>
+                                <option value="6" {{#ifCond size '==' '6'}}selected{{/ifCond}}>72</option>
+                                <option value="7" {{#ifCond size '==' '7'}}selected{{/ifCond}}>84</option>
+                                <option value="8" {{#ifCond size '==' '8'}}selected{{/ifCond}}>96</option>
+                            </select>
+                        </div>
+                        <div class="receipt-input-container">
+                            <label for="font-alignment-input">Font Alignment</label>
+                            <select class="font-alignment-input">
+                                <option value="left" {{#ifCond align '==' 'left'}}selected{{/ifCond}}>Left</option>
+                                <option value="center" {{#ifCond align '==' 'center'}}selected{{/ifCond}}>Center</option>
+                                <option value="right" {{#ifCond align '==' 'right'}}selected{{/ifCond}}>Right</option>
+                            </select>
+                        </div>
+                        <div class="receipt-input-container">
+                            <label class="receipt-text-label" for="receipt-text-input">Text (Line {{inc @index}})</label>
+                            <input class="receipt-text-input" value="{{text}}" />
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="footer-item receipt-input-wrapper" data-number="1" data-type="footer">
+                        <div class="delete-line-item">x</div>
+                        <div class="receipt-input-container">
+                            <label for="font-size-input">Font Size</label>
+                            <select class="font-size-input">
+                                <option value="1">12</option>
+                                <option value="2">24</option>
+                                <option value="3">36</option>
+                                <option value="4">48</option>
+                                <option value="5">60</option>
+                                <option value="6">72</option>
+                                <option value="7">84</option>
+                                <option value="8">96</option>
+                            </select>
+                        </div>
+                        <div class="receipt-input-container">
+                            <label for="font-alignment-input">Font Alignment</label>
+                            <select class="font-alignment-input">
+                                <option value="left">Left</option>
+                                <option value="center">Center</option>
+                                <option value="right">Right</option>
+                            </select>
+                        </div>
+                        <div class="receipt-input-container">
+                            <label class="receipt-text-label" for="receipt-text-input">Text (Line 1)</label>
+                            <input class="receipt-text-input" />
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            <div id="add-footer-button">Add</div>
+        </div>
+    </div>
+
+    <div id="save-receipt-settings-wrapper">
+        <div id="receipt-settings-result"></div>
+        <button id="save-receipt-settings" class="add">Save Settings</button>
+    </div>
+</div>
+<div id="receipt-preview-wrapper">
+    <div class="receipt-super-title">Preview</div>
+
+    <div id="receipt-container">
+        <div id="receipt-header-wrapper">
+            {{#each header.lines}}
+                <div class="receipt-line font-{{size}} align-{{align}}" data-receipt_id="{{inc @index}}">{{text}}</div>
+            {{else}}
+                <div class="receipt-line font-1 align-left" data-receipt_id="1"></div>
+            {{/each}}
+        </div>
+
+        {{#if example_item}}
+
+        <div id="receipt-item-wrapper" class="font-1">
+            <div class="receipt-item">
+                <span class="transaction-item">{{lookup example_item link_columns.name}}</span>
+                <span>{{currencyMath 400 '-' (currencyMath 2 '*' (lookup example_item link_columns.price))}}</span>
+            </div>
+
+            <div class="receipt-item-details">
+                <span class="transaction-quantity">(2 @ {{currencyMath 100 '-' (lookup example_item link_columns.price)}} ea)</span>
+                <span>Discount 2.00-  &emsp;&emsp;</span>
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div id="receipt-total-wrapper" class="font-1">
+            <div>
+                <span class="total-label">Subtotal</span>
+                <span>{{currencyMath 400 '-' (currencyMath 2 '*' (lookup example_item link_columns.price))}}</span>
+            </div>
+
+            <div>
+                <span class="total-label">Tax (8.300%)</span>
+                <span>{{currencyMath 0.083 '*' (currencyMath 400 '-' (currencyMath 2 '*' (lookup example_item link_columns.price))) 'true'}}</span>
+            </div>
+
+            <div class="font-2">
+                <span class="total-label">Total</span>
+                <span>{{currencyMath (currencyMath 400 '-' (currencyMath 2 '*' (lookup example_item link_columns.price))) '+' (currencyMath 0.083 '*' (currencyMath 400 '-' (currencyMath 2 '*' (lookup example_item link_columns.price))) 'true') 'false' 'true'}}</span>
+            </div>
+
+        </div>
+
+        {{/if}}
+
+
+        <div id="receipt-footer-wrapper">
+            {{#each footer.lines}}
+                <div class="receipt-line font-{{size}} align-{{align}}" data-receipt_id="{{inc @index}}">{{text}}</div>
+            {{else}}
+                <div class="receipt-line font-1 align-left" data-receipt_id="1"></div>
+            {{/each}}
+        </div>
+    </div>
+</div>

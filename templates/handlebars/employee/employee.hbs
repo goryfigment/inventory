@@ -1,0 +1,25 @@
+<div>
+    <table class="table-container">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each store.employees}}
+                <tr>
+                    <td>{{type}}</td>
+                    <td>{{first_name}} {{last_name}}</td>
+                    <td>{{username}}</td>
+                    <td>{{email}}</td>
+                    <td><div class="employee-edit-button" data-id="{{id}}"><i class="fas fa-wrench"></i></div></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

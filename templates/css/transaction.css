@@ -1,0 +1,758 @@
+@font-face {
+    font-family: VT323;
+    src: url(/templates/bundle/assets/fonts/VT323-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+#body-wrapper ::-webkit-scrollbar {
+    width: 8px;
+}
+
+#body-wrapper ::-webkit-scrollbar-track {
+    background: #808080;
+    border-radius: 1px;
+}
+
+#transaction-wrapper {
+    display: none;
+    overflow-y: auto;
+    height: calc(100vh - 67px);
+    margin: 0 10px;
+}
+
+#create-transactions-button {
+    background: #3959ce;
+    margin: 10px auto;
+    text-align: center;
+    color: white;
+    border: 1px solid #555555;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+#create-store-button {
+    display: none;
+}
+
+#create-employee-button {
+    display: none;
+}
+
+/*POPUPS*/
+#overlay h4 {
+    color: #7289da;
+    text-align: center;
+    font-size: 16px;
+    padding-top: 10px;
+}
+
+#overlay .popup {
+    background: #191919;
+    border-radius: 2px;
+}
+
+#overlay p {
+    color: #99aab5;
+    font-size: 12.5px;
+    text-align: center;
+}
+
+#overlay button {
+    margin-left: auto;
+    display: block;
+    color: #fff;
+    background-color: #7289da;
+    padding: 8px 16px;
+    border-radius: 3px;
+    font-size: 12px;
+    border: none;
+}
+
+#overlay button:hover {
+    background-color: #677bc4;
+}
+
+button[disabled=disabled], button:disabled {
+    opacity: 0.5;
+}
+
+#overlay label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #686868;
+}
+
+#overlay input {
+    background: #f6f6f6;
+    border-bottom: 2px solid #ddd;
+    color: #5b5b5b;
+}
+
+#overlay #form-wrapper {
+    padding: 15px;
+}
+
+#overlay #submit-wrapper {
+    padding: 10px;
+    border-radius: 2px;
+    background: #2a2a2a;
+}
+
+#overlay #center-input {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+#overlay #multiple-inputs {
+    display: flex;
+    overflow: hidden auto;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+
+#overlay #cancel-submit, #overlay #no-submit {
+    background: transparent;
+    border: none;
+    margin: 0;
+}
+
+#cancel-submit:hover, #overlay #no-submit:hover {
+    text-decoration: underline;
+}
+
+#overlay #exit-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: transparent;
+    font-size: 25px;
+    padding: 15px;
+    color: #a5a5a5;
+    transition: 0.5s ease all;
+}
+
+#overlay #exit-button div:nth-child(2) {
+    font-size: 10px;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+#overlay #exit-button:hover {
+    color: white;
+}
+
+#overlay #popup-inventory-wrapper {
+    height: calc(100% - 53px);
+    overflow-y: auto;
+    margin: 0 10px;
+}
+
+#overlay #popup-inventory-wrapper::-webkit-scrollbar {
+    width: 11px;
+    background: #262626;
+}
+
+#overlay #popup-inventory-wrapper::-webkit-scrollbar-thumb {
+    background-color: #5b5b5b;
+    border-color: transparent;
+    border-radius: 1px;
+}
+/*POPUPS*/
+
+/*CREATE TRANSACTION*/
+#create-transaction-wrapper {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#create-transaction-wrapper p {
+    text-align: center;
+}
+
+#payment-container {
+    display: flex;
+    justify-content: center;
+}
+
+#create-transaction-title {
+    font-size: 20px;
+}
+
+#details-section {
+    position: relative;
+}
+
+#search-input {
+    border-radius: 2px;
+    background: #f2f2f2;
+    height: 45px;
+    outline: 0;
+    width: 300px;
+    border: none !important;
+    font-size: 18px;
+    padding: 0 8px;
+    color: #000000;
+}
+
+#search-popup {
+    display: none;
+    width: 300px;
+    background: #fff;
+    position: absolute;
+    top: 44px;
+    right: 0;
+    left: -1px;
+    margin: auto;
+    border: solid 1px #aaa;
+    font-size: 19px;
+    border-radius: 1px;
+    cursor: default;
+    max-height: 211px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#search-popup.active {
+    display: block;
+}
+
+.search-item {
+    color: #000000;
+    padding: 4px;
+    font-family: initial;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.search-item.selected {
+    background: #DADADA;
+}
+
+#select-payment-title {
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+#select-payment-wrapper {
+    font-size: 35px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.payment-type {
+    cursor: pointer;
+    padding: 4px 8px;
+    color: #d9d9d9;
+    transition: 0.5s ease all;
+}
+
+.payment-type.selected {
+    border: #ffffff solid 1px;
+    background: #000000;
+}
+
+.payment-type.selected[data-payment_type="Cash"], .payment-type[data-payment_type="Cash"]:hover {
+    color: #50d250;
+}
+
+.payment-type.selected[data-payment_type="American Express"], .payment-type[data-payment_type="American Express"]:hover {
+    color: #2E77BB;
+}
+
+.payment-type.selected[data-payment_type="Discover"], .payment-type[data-payment_type="Discover"]:hover {
+    color: #E55C20;
+}
+
+.payment-type.selected[data-payment_type="MasterCard"], .payment-type[data-payment_type="MasterCard"]:hover {
+    color: #EB001B;
+}
+
+.payment-type.selected[data-payment_type="Visa"], .payment-type[data-payment_type="Visa"]:hover {
+    color: #232e93;
+}
+
+#receipt-section {
+    min-width: 400px;
+    padding: 15px;
+    background: #393939;
+    margin-left: 10px;
+}
+
+#receipt-header {
+    margin: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#receipt-item-container {
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 4px;
+}
+
+#receipt-item-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+#receipt-item-container::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+#receipt-item-container::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
+.transaction-heading {
+    display: flex;
+}
+
+.transaction-item {
+    position: relative;
+    margin: 15px 0;
+}
+
+.delete-button {
+    position: absolute;
+    color: #f44b4b;
+    right: -10px;
+    top: 17px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.transaction-name {
+    margin-right: auto;
+}
+
+.transaction-quantity {
+    padding: 7px;
+}
+
+.discount-button {
+    width: 102px;
+    padding: 3px 7px;
+    margin-left: 6px;
+    cursor: pointer;
+    color: #d8e2ee;
+    font-size: 14px;
+    background: #414141;
+    display: none;
+}
+
+#discount-submit-wrapper.active {
+    display: block;
+}
+
+.discount-button.active {
+    display: block;
+}
+
+.discount-button:hover {
+    background: #4f4f4f;
+}
+
+.discount-plus-icon {
+    color: #4789b0;
+}
+
+.quantity-input, .discount-money-input, .discount-percent-input {
+    margin: 0 3px;
+    border: none;
+    outline: none;
+    width: 39px;
+    padding: 3px;
+    text-align: center;
+    background: #474747;
+    color: #05fc51;
+}
+
+.quantity-input {
+    color: #05fc51;
+}
+
+#receipt-result-wrapper {
+    border-top: 2px solid #afb1b2;
+    padding: 5px;
+}
+
+#subtotal-wrapper, #tax-wrapper, #total-wrapper {
+    display: flex;
+}
+
+#total-wrapper {
+    font-size: 26px;
+    margin: 22px 0 0 0;
+}
+
+#subtotal, #tax, #total {
+    margin-left: auto;
+}
+
+#tax-rate {
+    margin-left: 4px;
+}
+
+#discount-submit-wrapper {
+    padding: 7px;
+    text-align: center;
+    border: 2px #9cb49a solid;
+    margin-bottom: 7px;
+    display: none;
+}
+
+.discount-submit, .discount-cancel {
+    cursor: pointer;
+    padding: 4px;
+    background: #2a2a2a;
+}
+
+.discount-submit:hover, .discount-cancel:hover {
+    background: #222;
+}
+
+.discount-submit {
+    margin-left: 16px;
+    margin-right: 5px;
+    color: #008000;
+}
+
+.discount-cancel {
+    color: #ff0000;
+}
+
+.discount-item {
+    display: flex;
+    position: relative;
+    padding: 0 25px;
+    margin-bottom: 10px;
+    background: #515151;
+    color: #dfdf99;
+}
+
+.discount {
+    display: none;
+    margin: 0 20px 0 auto;
+}
+
+span.discount {
+    display: inline-block;
+}
+
+.discount-delete {
+    position: absolute;
+    top: -2px;
+    left: 1px;
+    padding: 4px;
+    font-size: 14px;
+    color: #ed6565ad;
+    cursor: pointer;
+}
+
+.discount-delete:hover {
+    color: #ed6565;
+}
+
+#memo-title {
+    display: block;
+    font-size: 18px;
+    margin: 16px 0;
+}
+
+#memo-input {
+    width: 288px;
+    resize: none;
+    height: 120px;
+    line-height: 17px;
+    background: #262626;
+    color: #7bd0ea;
+    padding: 5px;
+    outline: none;
+    font-family: 'Karla', Arial, Helvetica, sans-serif, Georgia, serif;
+}
+
+#memo-input::-webkit-input-placeholder {
+    color: #b3baba;
+}
+
+#transaction-submit-button {
+    width: 300px;
+    color: #f6f6f6;
+    background: #2b8f37;
+    border: solid 2px #979797;
+    outline: none;
+    border-radius: 2px;
+    height: 50px;
+    margin: 20px 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+/*CREATE TRANSACTION*/
+
+/*LINK COLUMNS*/
+#linked-columns-wrapper {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#linked-columns-container {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+
+#linked-columns-wrapper .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#linked-columns-wrapper .input-container label {
+    font-size: 16px;
+    margin: 0;
+    color: #efefef;
+}
+
+#linked-columns-wrapper .input-container p {
+    margin: 5px 0 10px;
+    font-size: 12px;
+    color: #b0adad;
+}
+
+#linked-columns-wrapper .input-container select {
+    margin-bottom: 15px;
+}
+/*LINK COLUMNS*/
+
+/*TRANSACTION TABLE*/
+time {
+    text-align: center;
+    display: block;
+    margin: 12px 0;
+    font-size: 17px;
+}
+
+table.table-container {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+    background-color: #393939;
+    margin: 0 auto;
+    min-width: 788px;
+}
+
+table.table-container thead {
+    font-family: Lato-Bold;
+    font-size: 15px;
+    color: #00ad5f;
+    line-height: 1.4;
+    background-color: #2d2c2c;
+}
+
+table.table-container tbody {
+    font-family: Lato-Regular;
+    font-size: 15px;
+    color: #a5a5a5;
+    line-height: 1.4;
+    background-color: #151515;
+}
+
+table.table-container tbody td {
+    display: table-cell;
+    padding: 6px;
+}
+
+.number-column {
+    text-align: center;
+}
+/*TRANSACTION TABLE*/
+
+/* RECEIPT */
+#receipt-wrapper.active-tab {
+    display: flex !important;
+    justify-content: space-around;
+    height: 100%;
+}
+
+#receipt-preview-wrapper, #receipt-settings-wrapper {
+    min-width: 200px;
+    margin-bottom: 15px;
+}
+
+#receipt-settings-wrapper {
+    border: 1px solid #4a4a4b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 462px;
+    height: calc(100% - 70px);
+}
+
+.receipt-scroll-wrapper {
+    overflow-y: auto;
+}
+
+.receipt-super-title{
+    font-size: 25px;
+    margin: 5px 0;
+    text-align: center;
+}
+
+#printer-address-wrapper {
+    text-align: center
+}
+
+.printer-address {
+    width: 30px;
+    text-align: center;
+    height: 25px;
+}
+
+.period {
+    margin-left: 4px;
+    font-size: 20px;
+    line-height: 15px;
+}
+
+.receipt-settings-title {
+    font-size: 20px;
+    margin: 6px 0;
+    text-align: left;
+}
+
+.receipt-input-container:not(:last-child) {
+    padding-right: 25px;
+}
+
+.receipt-input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #353535;
+    padding: 13px;
+    position: relative;
+    white-space: nowrap;
+}
+
+#add-header-button, #add-footer-button {
+    background: green;
+    width: 80px;
+    border-radius: 1px;
+    text-align: center;
+    padding: 5px 5px;
+    cursor: pointer;
+    margin: 10px auto;
+}
+
+#add-header-button:hover, #add-footer-button:hover {
+    filter: brightness(115%);
+}
+
+.receipt-text-input {
+    height: 29px;
+    width: 200px;
+}
+
+.delete-line-item {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 3px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fc7e7e;
+}
+
+.delete-line-item:hover {
+    color: #ff4a4a;
+}
+
+#save-receipt-settings-wrapper {
+    position: relative;
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
+    padding: 11px 0 5px;
+    border-top: 1px solid #3e3e3f;
+}
+
+#receipt-container {
+    overflow-y: auto;
+    font-family: 'VT323', Arial, Helvetica, sans-serif, Georgia, serif;
+    width: 462px;
+    height: calc(100% - 133px);
+    margin: 0 auto;
+    background: #e5e5e5;
+    color: #000;
+    padding: 20px 10px 20px 10px;
+    word-break: break-all;
+    display: flex;
+    flex-direction: column;
+}
+
+#receipt-footer-wrapper {
+    margin-top: auto;
+}
+
+.font-1 {
+    font-size: 24px;
+}
+
+.font-2 {
+    font-size: 48px;
+}
+
+.font-3 {
+    font-size: 72px;
+}
+
+.font-4 {
+    font-size: 96px;
+}
+
+.font-5 {
+    font-size: 120px;
+}
+
+.font-6 {
+    font-size: 144px;
+}
+
+.font-7 {
+    font-size: 168px;
+}
+
+.font-8 {
+    font-size: 192px;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.receipt-item, .receipt-item-details, #receipt-total-wrapper div {
+    display: flex;
+}
+
+.transaction-item, .transaction-quantity, .total-label {
+    margin-right: auto;
+}
+
+#receipt-settings-result {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #4df14d;
+}
+/* RECEIPT */

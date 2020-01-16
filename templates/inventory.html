@@ -1,0 +1,84 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory</title>
+    <link rel='shortcut icon' type='image/x-icon' href="{% static 'bundle/assets/whey2ez/whey2ez.ico' %}" />
+
+    <script>
+        var globals = {};
+        globals.base_url = '{{base_url}}';
+        globals.edit_mode = false;
+        globals.active_store = '{{active_store}}';
+        globals.stores = {{stores|safe}};
+        globals.boss_username = '{{boss_username}}';
+    </script>
+</head>
+<body id="{{user_type}}">
+    {% csrf_token %}
+    <div id="flex-wrapper">
+{#        Side NAV#}
+        <%= require('html-loader!./partial/side_nav.html') %>
+{#        Side NAV#}
+{#        Side BAR#}
+        <%= require('html-loader!./partial/side_bar.html') %>
+{#        Side BAR#}
+{#        BODY#}
+        <div id="body-wrapper">
+            <div>
+                <nav>
+                    <ol>
+                        <li id="inventory-tab" class="tab active" data-type="inventory-wrapper"><b>Inventory</b></li> <span>|</span>
+                        <li id="log-tab" class="tab" data-type="log-wrapper"><b>Log</b></li>
+                    </ol>
+                    <div id="nav-wrapper">
+                        <span class="nav-links" id="account-link">Account</span>
+                        <div id="account-wrapper">
+                            <div>{{ name }}
+                                <span id="username">{{ username }}</span>
+                            </div>
+                            <div class="account-links" id="logout-link"><span id="logout-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</div>
+                        </div>
+                    </div>
+                </nav>
+
+                <div id="search-wrapper">
+                    <span id="search-icon"><i class="fas fa-search"></i></span>
+                    <input id="search-input" name="q" value="" autocomplete="off" placeholder="Search">
+                </div>
+
+                <nav class="action-bar" id="action">
+                    <ul>
+                        <li id="add-button">Add</li>
+                        <li id="edit-button">Edit</li>
+                        <li id="delete-button">Delete</li>
+                        <li id="import-button">Import</li>
+                        <li id="export-button">Export</li>
+                        <li id="drop-button">Drop</li>
+                    </ul>
+                </nav>
+
+                <nav class="action-bar" id="operation">
+                    <ul>
+                        <li id="received-button">Received</li>
+                        <li id="damaged-button">Damage</li>
+                        <li id="reset-button">Reset</li>
+                    </ul>
+                </nav>
+
+                <div id="inventory-wrapper" class="active-tab"></div>
+                <div id="log-wrapper"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay"></div>
+
+    <div id="tip-popup">
+        <div id="tip-arrow"></div>
+        <div id="tip-content"></div>
+    </div>
+</body>
+</html>

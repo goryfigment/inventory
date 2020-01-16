@@ -1,0 +1,35 @@
+#tip-popup {
+    z-index: 9999;
+    position: absolute;
+    opacity: 0;
+    transition-timing-function: cubic-bezier(.165,.84,.44,1);
+    pointer-events: none;
+    color: #fff;
+    border-radius: 4px;
+    font-size: .95rem;
+    padding: .4rem .8rem;
+    text-align: center;
+    background-color: #333;
+    display: none;
+}
+
+#tip-arrow {
+    border-top: 7px solid #333;
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+    bottom: -7px;
+    margin: 0 9px;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.mouse-leave {
+    opacity: 0 !important;
+    transform: translate3d(0, 0, 0) !important;
+}
+
+.tippy:hover {
+    filter: brightness(1.15) hue-rotate(10deg) contrast(1.5);
+    box-shadow: 0 10px 15px -1px rgba(0, 0, 0, 0.1), 0 25px 50px -4px rgba(0, 0, 0, 0.3);
+}

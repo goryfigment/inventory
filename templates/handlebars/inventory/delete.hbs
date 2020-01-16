@@ -1,0 +1,40 @@
+<div class="popup" id="delete-inventory-wrapper" data-id="{{id}}">
+    <div class="header-wrapper">
+        <h4>DELETE</h4>
+        <button id="exit-button">
+            <div><i class="far fa-times-circle"></i></div>
+            <div>esc</div>
+        </button>
+    </div>
+
+    <p>Select a column or row to delete.</p>
+
+    <div id="delete-details">
+        <p id="instructions">Are you sure you want to delete the following?</p>
+        <p class="error"></p>
+        <div>
+            <button id="delete-cancel">No</button>
+            <button id="delete-submit">Yes</button>
+        </div>
+    </div>
+
+    <div id="popup-inventory-wrapper">
+        <table id="inventory-table" class="table-container popup-table">
+            <thead>
+                <tr>
+                    {{#each store.columns}}
+                        <th class="custom-column" data-value="{{this}}">{{this}}</th>
+                    {{/each}}
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each store.inventory}}
+                    <tr data-id="{{this.[0]}}">
+                        {{tableHandler this.[1] ../store.columns}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

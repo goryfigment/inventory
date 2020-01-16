@@ -1,0 +1,49 @@
+<div class="popup" id="import-inventory-wrapper" data-id="{{store.id}}">
+
+    <div id="import-inventory-container">
+        <div id="file-step">
+            <div class="header-wrapper">
+                <h4>IMPORT</h4>
+                <button id="exit-button">
+                    <div><i class="far fa-times-circle"></i></div>
+                    <div>esc</div>
+                </button>
+            </div>
+
+            <p>Drag & Drop/Click to import an excel or csv file to upload.</p>
+
+            <div id="dragover-wrapper">
+                <input type="file" id="file-upload">
+                <div id="dragover-container">
+                    <div>
+                        <i class="fas fa-file-csv"></i>
+                        <p>or</p>
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+
+                    <h4>DRAG & DROP</h4>
+                </div>
+            </div>
+        </div>
+
+        <div id="import-step">
+            <div class="header-wrapper">
+                <h4>CONFIRM DATA</h4>
+                <button id="exit-button">
+                    <div><i class="far fa-times-circle"></i></div>
+                    <div>esc</div>
+                </button>
+            </div>
+
+            <p>Map each column to an existing field or add a new field.</p>
+            <p class="error"></p>
+
+            <div id="import-table-wrapper"></div>
+
+            <div id="submit-wrapper">
+                <button class="prev-step" id="no-submit" data-step="import-step">Back</button>
+                <button id="import-submit">Import</button>
+            </div>
+        </div>
+    </div>
+</div>

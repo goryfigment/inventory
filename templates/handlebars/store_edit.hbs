@@ -1,0 +1,30 @@
+<div class="popup" id="edit-store-wrapper" data-id="{{id}}">
+    <div>
+        <div id="form-wrapper">
+            <h4>OVERVIEW</h4>
+            <div id="center-input">
+                <label for="store-name">STORE NAME<i class="error"></i></label>
+                <input class="edit" id="store-name" value="{{name}}" />
+            </div>
+
+            <div>
+                <button class="next-step" id="delete-store-button">DELETE</button>
+            </div>
+        </div>
+
+        <div id="submit-wrapper">
+            <button id="cancel-submit">Cancel</button>
+            <button id="edit-store-submit" disabled>Save</button>
+        </div>
+    </div>
+
+    <div>
+        <p>Are you sure you want to delete {{name}}? This cannot be undone.</p>
+
+        <div id="submit-wrapper">
+            <button class="prev-step" id="no-submit">No</button>
+            <button id="delete-store-submit">Yes</button>
+        </div>
+    </div>
+
+</div>

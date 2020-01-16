@@ -1,0 +1,52 @@
+{{#each store.transactions}}
+    <div>
+        <time>{{datetime}}</time>
+        <table class="table-container">
+            <thead>
+                <tr>
+                    {{#ifCond store_length '>' 1}}<th>Store</th>{{/ifCond}}
+                    <th>Date</th>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                    <th>Tax</th>
+                    <th>Discount</th>
+                    <th>Type</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each transactions}}
+                    <tr>
+                        {{#ifCond store_length '>' 1}}<td class="name-column">{{../store.name}}</td>{{/ifCond}}
+                        <td class="number-column">
+                            {{timestamp}}
+                        </td>
+                        <td class="name-column">
+                            {{#each items}}
+                                <div class="product_name">{{name}}</div>
+                            {{/each}}
+                        </td>
+                        <td class="number-column">
+                            {{#each items}}
+                                <div>{{quantity}}</div>
+                            {{/each}}
+                        </td>
+                        <td class="number-column">
+                            {{#each items}}
+                                <div>{{price}}</div>
+                            {{/each}}
+                        </td>
+                        <td class="number-column">{{subtotal}}</td>
+                        <td class="number-column">{{tax}}</td>
+                        <td class="number-column">- {{discount}}</td>
+                        <td>{{payment_type}}</td>
+                        <td class="number-column">{{total}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{/each}}

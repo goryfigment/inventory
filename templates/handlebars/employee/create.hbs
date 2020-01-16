@@ -1,0 +1,77 @@
+<div class="popup" id="create-user-wrapper" data-id="{{store.id}}">
+
+    <div id="create-user-container">
+        <div id="type-step">
+            <div class="header-wrapper">
+                <h4>USER TYPE</h4>
+                <button id="exit-button">
+                    <div><i class="far fa-times-circle"></i></div>
+                    <div>esc</div>
+                </button>
+            </div>
+
+            <p>Select a type of user to create.</p>
+
+            <div id="user-select-wrapper">
+                <div id="admin-selection" class="user-next-step" data-step="create-step" data-type="admin">
+                    <h5>ADMIN</h5>
+                    <p>An admin is not limited at all.</p>
+                    <div><i class="fas fa-user-tie"></i></div>
+                </div>
+                <div id="employee-selection" class="user-next-step" data-step="create-step" data-type="employee">
+                    <h5>EMPLOYEE</h5>
+                    <p>An employee can create transactions and perform inventory operations.</p>
+                    <div><i class="fas fa-cash-register"></i></div>
+                </div>
+                <div id="employee-selection" class="user-next-step" data-step="create-step" data-type="read">
+                    <h5>READ ONLY</h5>
+                    <p>This user can only view the interface.</p>
+                    <div><i class="fas fa-book-open"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="create-step">
+            <div class="header-wrapper">
+                <h4 id="employee-title"></h4>
+                <p id="employee-description"></p>
+                <button id="exit-button">
+                    <div><i class="far fa-times-circle"></i></div>
+                    <div>esc</div>
+                </button>
+            </div>
+
+            <div id="form-wrapper">
+                <div>
+                    <label for="email">Email<i class="email error"></i></label>
+                    <input id="email" />
+                </div>
+                <div class="form-container">
+                    <div>
+                        <label for="username">Username<i class="username error"></i></label>
+                        <input id="username" />
+                    </div>
+                    <div>
+                        <label for="password">Password<i class="password error"></i></label>
+                        <input id="password" />
+                    </div>
+                </div>
+                <div class="form-container">
+                    <div>
+                        <label for="first-name">First Name<i class="first-name error"></i></label>
+                        <input id="first-name" />
+                    </div>
+                    <div>
+                        <label for="last-name">Last Name<i class="last-name error"></i></label>
+                        <input id="last-name" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="submit-wrapper">
+                <button class="prev-step" id="no-submit" data-step="create-step">Back</button>
+                <button id="user-create-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{{#each stores}}
+    <li class="store{{#ifCond this.id '==' ../active_store}} active{{/ifCond}}" data-id="{{this.id}}">
+        <div>
+            <i class="fas fa-store"></i>
+            <h3>{{this.name}}</h3>
+            <button class="edit-store-button"><i class="fas fa-cog"></i></button>
+        </div>
+
+        <div>
+            <p>Items: {{#if item_count}}{{this.item_count}}{{else}}0{{/if}}</p>
+        </div>
+    </li>
+{{/each}}

@@ -1,0 +1,5 @@
+<div class="discount-item" data-type="{{#ifCond type '==' 'dollar'}}dollar{{else}}percent{{/ifCond}}" data-percent="{{percent}}">
+    <span>Discount {{#ifCond type '==' 'percent'}}({{percent}}%){{/ifCond}}</span>
+    <span class="discount">{{total}}-</span>
+    <span class="discount-delete" data-discount="{{total}}"><i class="fas fa-ban"></i></span>
+</div>

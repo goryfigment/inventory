@@ -1,0 +1,58 @@
+<div class="popup" id="linked-columns-wrapper">
+    <div id="linked-columns-container">
+        <div class="header-wrapper">
+            <h4>LINK COLUMNS</h4>
+            <button id="exit-button">
+                <div><i class="far fa-times-circle"></i></div>
+                <div>esc</div>
+            </button>
+        </div>
+
+        <p>In order to do calculations and reports we need to register which column is which.</p>
+        <p class="error"></p>
+
+        <div class="input-container">
+            <label for="name-column-input">Name</label>
+            <p>The name of item you wish to identify in reports/receipts/transactions.</p>
+            <select id="name-column-input" data-type="{{type}}">
+                {{#each columns}}
+                    <option value="{{this}}" {{#ifCond this '==' ../link_columns.name}}selected{{/ifCond}}>{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="quantity-column-input">Quantity</label>
+            <p>The quantity of item used to subtract when transactions are made.</p>
+            <select id="quantity-column-input" data-type="{{type}}">
+                {{#each columns}}
+                    <option value="{{this}}" {{#ifCond this '==' ../link_columns.quantity}}selected{{/ifCond}}>{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="price-column-input">Price</label>
+            <p>The price the consumers pays to purchase the item.</p>
+            <select id="price-column-input" data-type="{{type}}">
+                {{#each columns}}
+                    <option value="{{this}}" {{#ifCond this '==' ../link_columns.price}}selected{{/ifCond}}>{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="cost-column-input">Cost</label>
+            <p>The total cost it took to produce that item. This column is used calculates your profit.</p>
+            <select id="cost-column-input" data-type="{{type}}">
+                {{#each columns}}
+                    <option value="{{this}}" {{#ifCond this '==' ../link_columns.cost}}selected{{/ifCond}}>{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+
+    <div id="submit-wrapper">
+        <button data-id="{{id}}" id="linked-column-submit">Submit</button>
+    </div>
+</div>

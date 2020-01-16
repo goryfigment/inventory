@@ -1,0 +1,72 @@
+<div class="popup" id="user-edit-wrapper">
+    <button id="exit-button">
+        <div><i class="far fa-times-circle"></i></div>
+        <div>esc</div>
+    </button>
+
+    <div id="overlay-sidebar">
+        <ul>
+            <h5>USER SETTINGS</h5>
+            <li class="active" data-id="overview-wrapper">Overview</li>
+            <li id="delete-user-prompt">Delete User</li>
+        </ul>
+    </div>
+
+    <div id="overview-wrapper">
+        <div class="header-wrapper">
+            <h4>USER OVERVIEW</h4>
+            <div id="form-wrapper">
+                <div class="form-container">
+                    <div>
+                        <label for="type">Type<i class="type error"></i></label>
+                        <select id="type">
+                            <option value="admin" {{#ifCond employee.type '==' 'admin'}}selected{{/ifCond}}>Admin</option>
+                            <option value="employee" {{#ifCond employee.type '==' 'employee'}}selected{{/ifCond}}>Employee</option>
+                            <option value="read" {{#ifCond employee.type '==' 'read'}}selected{{/ifCond}}>Read Only</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="email">Email<i class="email error"></i></label>
+                        <input id="email" value="{{employee.email}}" />
+                    </div>
+                </div>
+                <div class="form-container">
+                    <div>
+                        <label for="username">Username<i class="username error"></i></label>
+                        <input id="username" value="{{employee.username}}" />
+                    </div>
+                    <div>
+                        <label for="password">Change Password<i class="password error"></i></label>
+                        <input id="password" />
+                    </div>
+                </div>
+                <div class="form-container">
+                    <div>
+                        <label for="first-name">First Name<i class="first-name error"></i></label>
+                        <input id="first-name" value="{{employee.first_name}}" />
+                    </div>
+                    <div>
+                        <label for="last-name">Last Name<i class="last-name error"></i></label>
+                        <input id="last-name" value="{{employee.last_name}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="submit-wrapper">
+            <button class="cancel-button" id="cancel-submit">Cancel</button>
+            <button id="user-edit-submit" data-id="{{employee.id}}" data-store_id="{{store_id}}">Submit</button>
+        </div>
+    </div>
+
+    <div id="delete-overlay">
+        <div id="overlay-delete-wrapper">
+            <h4>Delete '{{employee.first_name}} {{employee.last_name}}'</h4>
+            <p>Are you sure you want to delete {{employee.first_name}} {{employee.last_name}}.<br/> This can't be undone.</p>
+
+            <div id="submit-wrapper">
+                <button class="delete-cancel-button" id="no-submit">Cancel</button>
+                <button id="user-delete-submit" data-id="{{employee.id}}" data-store_id="{{store_id}}">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

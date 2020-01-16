@@ -1,0 +1,59 @@
+<div class="popup" id="create-transaction-wrapper">
+    <div id="create-transaction-container">
+        <div class="header-wrapper">
+            <h4>CREATE TRANSACTION</h4>
+            <button id="exit-button">
+                <div><i class="far fa-times-circle"></i></div>
+                <div>esc</div>
+            </button>
+        </div>
+        <p>Current Store: <b>{{name}}</b></p>
+        <p class="error"></p>
+    </div>
+    <div id="payment-container">
+        <div id="details-section">
+            <input id="search-input" type="search" placeholder="Search for an item.." data-id="{{id}}" autocomplete="off">
+            <div id="search-popup"></div>
+            <div id="select-payment-title">Select Payment</div>
+            <div id="select-payment-wrapper">
+                <span class="payment-type selected" data-payment_type="Cash">
+                    <i class="fas fa-money-bill-alt"></i>
+                </span>
+                <span class="payment-type" data-payment_type="American Express">
+                    <i class="fab fa-cc-amex"></i>
+                </span>
+                <span class="payment-type" data-payment_type="Discover">
+                    <i class="fab fa-cc-discover"></i>
+                </span>
+                <span class="payment-type" data-payment_type="MasterCard">
+                    <i class="fab fa-cc-mastercard"></i>
+                </span>
+                <span class="payment-type" data-payment_type="Visa">
+                    <i class="fab fa-cc-visa"></i>
+                </span>
+            </div>
+
+            <div id="memo-wrapper">
+                <label id="memo-title" for="memo-input">Memo</label>
+                <textarea id="memo-input" placeholder="Optional"></textarea>
+            </div>
+
+            <button id="transaction-submit-button" data-id="{{id}}">Create Transaction</button>
+
+        </div>
+
+        <div id="receipt-section">
+            <div id="receipt-details">
+                <div id="receipt-header">Receipt</div>
+            </div>
+
+            <div id="receipt-item-container"></div>
+
+            <div id="receipt-result-wrapper">
+                <div id="subtotal-wrapper"><span class="receipt-subtitle">Subtotal</span><span id="subtotal">0.00</span></div>
+                <div id="tax-wrapper"><span class="receipt-subtitle">Tax</span><span id="tax-rate">({{tax}}%)</span><span id="tax" data-tax="{{tax}}">0.00</span></div>
+                <div id="total-wrapper"><span class="receipt-subtitle">Total</span><span id="total">0.00</span></div>
+            </div>
+        </div>
+    </div>
+</div>
