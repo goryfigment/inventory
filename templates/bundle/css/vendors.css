@@ -718,6 +718,13 @@ button.delete:hover {
 }
 /* ACCOUNT WRAPPER */
 
+/*EMPTY*/
+#empty-store-wrapper div {
+    font-size: 45px;
+    margin: 13px 0;
+}
+/*EMPTY*/
+
 
 /*BOUNCE*/
 /*@-webkit-keyframes uploadModalBounceTransition-2UbjF9 {*/

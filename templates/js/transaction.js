@@ -176,7 +176,13 @@ $(document).ready(function() {
         $storeItem = $('.store[data-id="' + storeId + '"]');
     }
 
-    $storeItem.click();
+    if($storeItem.length) {
+        $storeItem.click();
+    } else {
+        var $transactionWrapper = $('#transaction-wrapper');
+        $transactionWrapper.append(transactionTableTemplate({'store': globals.stores[storeId]}));
+    }
+
 });
 
 // POPUP //
@@ -224,7 +230,7 @@ $(document).on('click', '.store:not(.active)', function () {
     $this.addClass('active');
     localStorage.setItem("clicked_store", String(storeId));
     $transactionWrapper.empty();
-    $transactionWrapper.append(transactionTableTemplate({'store': globals.stores[storeId]}))
+    $transactionWrapper.append(transactionTableTemplate({'store': globals.stores[storeId]}));
 });
 // STORE //
 

@@ -10,4 +10,9 @@
             <p>Items: {{#if item_count}}{{this.item_count}}{{else}}0{{/if}}</p>
         </div>
     </li>
+{{else}}
+    <div id="empty-store-wrapper">
+        <div><i class="fas fa-store"></i></div>
+        <p>Create a store to get started!</p>
+    </div>
 {{/each}}

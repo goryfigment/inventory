@@ -68,6 +68,39 @@ body#read #create-employee-button, .table-container td:nth-of-type(5), .table-co
     width: 8px;
 }
 
+/*EMPTY*/
+#empty-employee-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: 100%;
+    min-height: 200px;
+}
+
+#empty-employee-wrapper div {
+    font-size: 145px;
+    color: #7289da;
+}
+
+#empty-employee-wrapper p {
+    color: #99aab5;
+}
+/*EMPTY*/
+
 /*POPUPS*/
 #overlay h4 {
     color: #7289da;

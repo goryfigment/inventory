@@ -7,6 +7,7 @@ var storeEditTemplate = require('./../handlebars/store_edit.hbs');
 var storeItemTemplate = require('./../handlebars/store_item.hbs');
 var overviewTemplate = require('./../handlebars/overview/overview.hbs');
 var overviewTotalTemplate = require('./../handlebars/overview/overview_total.hbs');
+var emptyOverviewTemplate = require('./../handlebars/overview/empty_overview.hbs');
 var salesSummaryTemplate = require('./../handlebars/overview/sales_summary.hbs');
 
 //libraries
@@ -68,7 +69,12 @@ $(document).ready(function() {
         $storeItem = $('.store[data-id="' + storeId + '"]');
     }
 
-    $storeItem.click();
+    if($storeItem.length) {
+        $storeItem.click();
+    } else {
+        var $overviewWrapper = $('#overview-wrapper');
+        $overviewWrapper.append(emptyOverviewTemplate({}));
+    }
 });
 
 // STORE //

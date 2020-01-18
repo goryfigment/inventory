@@ -97,7 +97,12 @@ $(document).ready(function() {
         $storeItem = $('.store[data-id="' + storeId + '"]');
     }
 
-    $storeItem.click();
+    if($storeItem.length) {
+        $storeItem.click();
+    } else {
+        var $employeeWrapper = $('#employee-wrapper');
+        $employeeWrapper.append(employeeTemplate({'store': globals.stores[storeId]}));
+    }
 });
 
 // POPUP //

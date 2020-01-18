@@ -1,25 +1,32 @@
-<div>
-    <table class="table-container">
-        <thead>
-            <tr>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {{#each store.employees}}
+{{#if store.employees}}
+    <div>
+        <table class="table-container">
+            <thead>
                 <tr>
-                    <td>{{type}}</td>
-                    <td>{{first_name}} {{last_name}}</td>
-                    <td>{{username}}</td>
-                    <td>{{email}}</td>
-                    <td><div class="employee-edit-button" data-id="{{id}}"><i class="fas fa-wrench"></i></div></td>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
                 </tr>
-            {{/each}}
-        </tbody>
-    </table>
-</div>
+            </thead>
+
+            <tbody>
+                {{#each store.employees}}
+                    <tr>
+                        <td>{{type}}</td>
+                        <td>{{first_name}} {{last_name}}</td>
+                        <td>{{username}}</td>
+                        <td>{{email}}</td>
+                        <td><div class="employee-edit-button" data-id="{{id}}"><i class="fas fa-wrench"></i></div></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{else}}
+    <div id="empty-employee-wrapper">
+        <div><i class="fas fa-user-tie"></i></div>
+        <p>Well this is soda pressing.</p>
+    </div>
+{{/if}}

@@ -11,6 +11,27 @@
     width: 8px;
 }
 
+/*EMPTY*/
+#empty-overview-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    min-height: 200px;
+    width: calc(100vw - 230px);
+}
+
+#empty-overview-wrapper div {
+    font-size: 145px;
+    color: #7289da;
+}
+
+#empty-overview-wrapper p {
+    color: #99aab5;
+}
+/*EMPTY*/
+
 time {
     display: block;
     text-align: center;
