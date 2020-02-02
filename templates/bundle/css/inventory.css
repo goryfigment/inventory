@@ -24,6 +24,10 @@
     display: none;
 }
 
+.inactive {
+    opacity: 0.3;
+}
+
 /*EMPTY*/
 #empty-inventory-wrapper, #empty-log-wrapper {
     display: -webkit-box;
@@ -393,6 +397,55 @@ button[disabled=disabled], button:disabled {
             align-items: center;
 }
 /*EDIT STORE*/
+
+/*LINK COLUMNS*/
+#linked-columns-wrapper {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#linked-columns-wrapper p {
+    text-align: center;
+}
+
+#linked-columns-container {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+
+#linked-columns-wrapper .input-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+#linked-columns-wrapper .input-container label {
+    font-size: 16px;
+    margin: 0;
+    color: #efefef;
+}
+
+#linked-columns-wrapper .input-container p {
+    margin: 5px 0 10px;
+    font-size: 12px;
+    color: #b0adad;
+}
+
+#linked-columns-wrapper .input-container select {
+    margin-bottom: 15px;
+}
+/*LINK COLUMNS*/
 
 /*ADD INVENTORY*/
 #add-inventory-wrapper {

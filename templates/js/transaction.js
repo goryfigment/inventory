@@ -169,20 +169,13 @@ $(document).ready(function() {
     $('#receipt-wrapper').append(receiptSettingsTemplate(globals.settings));
 
     var storeId = localStorage.getItem('clicked_store');
+    var $storeItem = $('.store[data-id="' + storeId + '"]');
 
-    if (storeId === null) {
-        var $storeItem = $('.store')[0];
-    } else {
-        $storeItem = $('.store[data-id="' + storeId + '"]');
+    if (storeId === null || !$storeItem.length) {
+        $storeItem = $('.store')[0];
     }
 
-    if($storeItem.length) {
-        $storeItem.click();
-    } else {
-        var $transactionWrapper = $('#transaction-wrapper');
-        $transactionWrapper.append(transactionTableTemplate({'store': globals.stores[storeId]}));
-    }
-
+    $storeItem.click();
 });
 
 // POPUP //

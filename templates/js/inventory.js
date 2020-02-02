@@ -26,6 +26,7 @@ var inventoryDamagedTemplate = require('./../handlebars/inventory/damaged.hbs');
 var inventoryResetTemplate = require('./../handlebars/inventory/reset.hbs');
 var rowTemplate = require('./../handlebars/inventory/row.hbs');
 var itemLogTemplate = require('./../handlebars/inventory/item_log.hbs');
+var linkedColumnsTemplate = require('./../handlebars/transaction/link_columns.hbs');
 
 function popupHandler(e, popupData, template) {
     e.stopPropagation();
@@ -120,17 +121,78 @@ function initiateDragDrop() {
 
             var file = e.originalEvent.dataTransfer.files[0];
             var fileType = file.type;
-            //alert(fileType)
             //console.log(fileType)
 
             if(fileType == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || fileType == 'application/vnd.ms-excel') {
-                $('#overlay').addClass('drop');
-                globals.file = file;
+                var formData = new FormData();
+                formData.append('excel_file', file);
+
+                function success(response) {
+                    //console.log(JSON.stringify(response));
+                    var $importTableWrapper = $('#import-table-wrapper');
+                    $importTableWrapper.empty();
+                    $importTableWrapper.append(inventoryImportTableTemplate(response));
+
+                    var $popup = $('.popup');
+
+                    //SHOW NEXT STEP
+                    $('#import-step').show();
+                    $popup.animate({scrollLeft: $popup.width()}, "slow");
+                }
+
+                function error(response) {
+                    alert('File cannot be read!');
+                }
+
+                fileRequest('/inventory/read_excel/', formData, success, error);
             } else {
                 alert('This file must be an excel or csv!');
             }
         }
     });
+}
+
+function checkStore() {
+    if(!$('.store').length) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function checkColumnsRows() {
+    var storeId = $('.store.active').attr('data-id');
+    var store = globals.stores[storeId];
+
+    if(storeId === undefined) {
+        $('#import-button').addClass('inactive');
+        $('#add-button').addClass('inactive');
+        $('#edit-button').addClass('inactive');
+        $('#delete-button').addClass('inactive');
+        $('#export-button').addClass('inactive');
+        $('#drop-button').addClass('inactive');
+        $('#received-button').addClass('inactive');
+        $('#damaged-button').addClass('inactive');
+        $('#reset-button').addClass('inactive');
+    } else if(!store['columns'].length && !store['inventory'].length) {
+        $('#import-button').removeClass('inactive');
+        $('#add-button').removeClass('inactive');
+        $('#edit-button').addClass('inactive');
+        $('#delete-button').addClass('inactive');
+        $('#export-button').addClass('inactive');
+        $('#drop-button').addClass('inactive');
+        $('#received-button').addClass('inactive');
+        $('#damaged-button').addClass('inactive');
+        $('#reset-button').addClass('inactive');
+    } else {
+        $('#edit-button').removeClass('inactive');
+        $('#delete-button').removeClass('inactive');
+        $('#export-button').removeClass('inactive');
+        $('#drop-button').removeClass('inactive');
+        $('#received-button').removeClass('inactive');
+        $('#damaged-button').removeClass('inactive');
+        $('#reset-button').removeClass('inactive');
+    }
 }
 
 $(document).ready(function() {
@@ -144,6 +206,8 @@ $(document).ready(function() {
 
     var $logWrapper = $('#log-wrapper');
     $logWrapper.append(itemLogTemplate({'store': activeStore}));
+
+    checkColumnsRows();
 });
 
 // POPUP //
@@ -265,11 +329,19 @@ function storeSuccess(response, exception) {
     if(exception == 'add') {
         $('.store[data-id="' + storeId + '"]').click();
     } else {
-        $('.store[data-id="' + activeStore + '"]').click();
+        var $store = $('.store[data-id="' + activeStore + '"]');
+        if($store.length) {
+            $store.click();
+        } else {
+            var $inventoryWrapper = $('#inventory-wrapper');
+            $inventoryWrapper.empty();
+            $inventoryWrapper.append(inventoryTemplate({}));
+        }
     }
 
     //Close popup
     $('#overlay').removeClass('active');
+    checkColumnsRows();
 }
 
 //Create Store
@@ -301,11 +373,39 @@ $(document).on('click', '#delete-store-submit', function () {
 });
 // STORE //
 
+//SEARCH//
+$(document).on('keyup', '#search-input', function () {
+    var $searchInput = $(this);
+    var searchValue = $searchInput.val().trim().toLowerCase();
+    var $table = $('#inventory-table');
+
+    //loops through rows
+    $table.find('tr').each(function() {
+        var $currentRow = $(this);
+        var $columns = $currentRow.find('td');
+        //loops through filters and compares
+        for (var i = 0; i < $columns.length; i++) {
+            //find each filter value
+            var filterValue = $columns.text().toLowerCase();
+            //if find match
+            if(filterValue.indexOf(searchValue) != -1) {
+                $currentRow.show();
+            } else {
+                $currentRow.hide();
+            }
+        }
+    })
+});
+//SEARCH//
+
 // ADD INVENTORY //
 $(document).on('click', '#add-button', function (e) {
     var storeId = $('.store.active').attr('data-id');
-
-    popupHandler(e, {'columns': globals.stores[storeId]['columns']}, inventoryAddTemplate);
+    if(checkStore()) {
+        popupHandler(e, {'columns': globals.stores[storeId]['columns']}, inventoryAddTemplate);
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
 });
 
 
@@ -331,6 +431,8 @@ $(document).on('click', '#create-column-submit', function () {
 
         // CACHE THE DATA
         globals.stores[storeId] = response['store'];
+
+        checkColumnsRows();
     }
 
     sendRequest('/inventory/add_column/', data, 'POST', success, overlayError, 'edit');
@@ -359,6 +461,7 @@ $(document).on('click', '#create-row-submit', function () {
 
         // CACHE THE DATA
         globals.stores[storeId] = response['store'];
+        checkColumnsRows();
     }
 
     function error(response) {
@@ -383,15 +486,19 @@ $(document).on('click', '#create-row-submit', function () {
 
     sendRequest('/inventory/add_row/', data, 'POST', success, error, 'edit');
 });
-
 // ADD INVENTORY //
 
 
 // EDIT INVENTORY //
-$(document).on('click', '#edit-button', function (e) {
+$(document).on('click', '#edit-button:not(.inactive)', function (e) {
     var storeId = $('.store.active').attr('data-id');
 
-    popupHandler(e, {store: globals.stores[storeId]}, inventoryEditTemplate);
+    if(checkStore()) {
+        popupHandler(e, {store: globals.stores[storeId]}, inventoryEditTemplate);
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
+
     initiateHoverColumn();
 });
 
@@ -498,10 +605,15 @@ $(document).on('keyup', function(e) {
 
 
 // DELETE INVENTORY //
-$(document).on('click', '#delete-button', function (e) {
+$(document).on('click', '#delete-button:not(.inactive)', function (e) {
     var storeId = $('.store.active').attr('data-id');
 
-    popupHandler(e, {store: globals.stores[storeId]}, inventoryDeleteTemplate);
+    if(checkStore()) {
+        popupHandler(e, {store: globals.stores[storeId]}, inventoryDeleteTemplate);
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
+
     initiateHoverColumn();
 });
 
@@ -594,7 +706,12 @@ $(document).on('click', '#delete-submit', function () {
 $(document).on('click', '#import-button', function (e) {
     var storeId = $('.store.active').attr('data-id');
 
-    popupHandler(e, {store: globals.stores[storeId]}, inventoryImportTemplate);
+    if(checkStore()) {
+        popupHandler(e, {store: globals.stores[storeId]}, inventoryImportTemplate);
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
+
     initiateDragDrop();
 });
 
@@ -711,6 +828,7 @@ $(document).on('click', '#import-submit', function () {
         $('#overlay').removeClass('active');
 
         globals.stores[storeId] = response['store'];
+        checkColumnsRows();
     }
 
     sendRequest('/inventory/import_submit/', JSON.stringify(data), 'POST', success, overlayError);
@@ -718,9 +836,13 @@ $(document).on('click', '#import-submit', function () {
 // IMPORT //
 
 // EXPORT //
-$(document).on('click', '#export-button', function (e) {
+$(document).on('click', '#export-button:not(.inactive)', function (e) {
     var storeId = $('.store.active').attr('data-id');
-    popupHandler(e, {id: storeId}, inventoryExportTemplate);
+    if(checkStore()) {
+        popupHandler(e, {id: storeId}, inventoryExportTemplate);
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
 });
 
 function createXmlHttpRequestObject() {
@@ -934,9 +1056,14 @@ $(document).on('click', '#export-submit', function () {
 // EXPORT //
 
 // DROP //
-$(document).on('click', '#drop-button', function (e) {
+$(document).on('click', '#drop-button:not(.inactive)', function (e) {
     var storeId = $('.store.active').attr('data-id');
-    popupHandler(e, {id: storeId}, inventoryDropTemplate);
+
+    if(checkStore()) {
+        popupHandler(e, {id: storeId}, inventoryDropTemplate);
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
 });
 
 $(document).on('click', '#drop-table-submit', function () {
@@ -956,6 +1083,7 @@ $(document).on('click', '#drop-table-submit', function () {
         $('#overlay').removeClass('active');
 
         globals.stores[storeId] = response['store'];
+        checkColumnsRows();
     }
 
     sendRequest('/inventory/drop_table/', data, 'POST', success, overlayError);
@@ -963,9 +1091,24 @@ $(document).on('click', '#drop-table-submit', function () {
 // DROP //
 
 // RECEIVED //
-$(document).on('click', '#received-button', function (e) {
+$(document).on('click', '#received-button:not(.inactive)', function (e) {
     var storeId = $('.store.active').attr('data-id');
-    popupHandler(e, {store: globals.stores[storeId]}, inventoryReceivedTemplate);
+    var store = globals.stores[storeId];
+    var linkedColumns = store['link_columns'];
+
+    console.log(storeId)
+    console.log(JSON.stringify(store))
+    console.log(store['id'])
+
+    if(checkStore()) {
+        if(linkedColumns['name'] && linkedColumns['price'] && linkedColumns['cost'] && linkedColumns['quantity']) {
+            popupHandler(e, {store: globals.stores[storeId]}, inventoryReceivedTemplate);
+        } else {
+            popupHandler(e, {'id': store['id'], 'columns': store['columns'], 'link_columns': store['link_columns']}, linkedColumnsTemplate);
+        }
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
 });
 
 
@@ -1025,9 +1168,20 @@ $(document).on('click', '#received-submit', function () {
 // RECEIVED //
 
 // DAMAGED //
-$(document).on('click', '#damaged-button', function (e) {
+$(document).on('click', '#damaged-button:not(.inactive)', function (e) {
     var storeId = $('.store.active').attr('data-id');
-    popupHandler(e, {store: globals.stores[storeId]}, inventoryDamagedTemplate);
+    var store = globals.stores[storeId];
+    var linkedColumns = store['link_columns'];
+
+    if(checkStore()) {
+        if(linkedColumns['name'] && linkedColumns['price'] && linkedColumns['cost'] && linkedColumns['quantity']) {
+            popupHandler(e, {store: globals.stores[storeId]}, inventoryDamagedTemplate);
+        } else {
+            popupHandler(e, {'id': store['id'], 'columns': store['columns'], 'link_columns': store['link_columns']}, linkedColumnsTemplate);
+        }
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
 });
 
 $(document).on('click', '#damaged-wrapper #choose-step tbody tr', function () {
@@ -1087,9 +1241,20 @@ $(document).on('click', '#damaged-submit', function () {
 
 
 // RESET //
-$(document).on('click', '#reset-button', function (e) {
+$(document).on('click', '#reset-button:not(.inactive)', function (e) {
     var storeId = $('.store.active').attr('data-id');
-    popupHandler(e, {store: globals.stores[storeId]}, inventoryResetTemplate);
+    var store = globals.stores[storeId];
+    var linkedColumns = store['link_columns'];
+
+    if(checkStore()) {
+        if(linkedColumns['name'] && linkedColumns['price'] && linkedColumns['cost'] && linkedColumns['quantity']) {
+            popupHandler(e, {store: globals.stores[storeId]}, inventoryResetTemplate);
+        } else {
+            popupHandler(e, {'id': store['id'], 'columns': store['columns'], 'link_columns': store['link_columns']}, linkedColumnsTemplate);
+        }
+    } else {
+        popupHandler(e, {}, storeTemplate);
+    }
 });
 
 $(document).on('click', '#reset-wrapper #choose-step tbody tr', function () {
@@ -1212,3 +1377,37 @@ $(document).on('click', '#cost-submit', function () {
     sendRequest('/inventory/reset_cost/', postData, 'POST', success, error);
 });
 // RESET //
+
+// LINK COLUMNS //
+$(document).on('click', '#linked-column-submit', function () {
+    var postData = JSON.stringify({
+        'store_id': $(this).attr('data-id'),
+        'link_columns': {
+            'name': $('#name-column-input').val(),
+            'price': $('#price-column-input').val(),
+            'quantity': $('#quantity-column-input').val(),
+            'cost': $('#cost-column-input').val()
+        }
+    });
+
+    function success(response) {
+        //JSON.stringify(response);
+        var $storeContainer = $('.store-container');
+        $storeContainer.empty();
+        $storeContainer.append(storeItemTemplate({'stores': globals.stores}));
+
+        $('#overlay').removeClass('active');
+        globals.stores[response['id']]['link_columns'] = response['link_columns'];
+    }
+
+    function error(response) {
+        if(response.status && response.status == 403) {
+            $('#overlay').find('.error').text('Permission Denied').show();
+        } else {
+            $('#overlay').find('.error').text(response.responseText).show();
+        }
+    }
+
+    sendRequest('/transaction/link_columns/', postData, 'POST', success, error);
+});
+// LINK COLUMNS //

@@ -2,8 +2,6 @@ require('./../css/general.css');
 require('./../css/overview.css');
 require('./../library/fontawesome/fontawesome.js');
 
-var storeTemplate = require('./../handlebars/store.hbs');
-var storeEditTemplate = require('./../handlebars/store_edit.hbs');
 var storeItemTemplate = require('./../handlebars/store_item.hbs');
 var overviewTemplate = require('./../handlebars/overview/overview.hbs');
 var overviewTotalTemplate = require('./../handlebars/overview/overview_total.hbs');
@@ -62,19 +60,13 @@ $(document).ready(function() {
     $('#store-container').append(storeItemTemplate({'stores': globals.stores}));
 
     var storeId = localStorage.getItem('clicked_store');
+    var $storeItem = $('.store[data-id="' + storeId + '"]');
 
-    if (storeId === null) {
-        var $storeItem = $('.store')[0];
-    } else {
-        $storeItem = $('.store[data-id="' + storeId + '"]');
+    if (storeId === null || !$storeItem.length) {
+        $storeItem = $('.store')[0];
     }
 
-    if($storeItem.length) {
-        $storeItem.click();
-    } else {
-        var $overviewWrapper = $('#overview-wrapper');
-        $overviewWrapper.append(emptyOverviewTemplate({}));
-    }
+    $storeItem.click();
 });
 
 // STORE //
@@ -114,6 +106,12 @@ function getTransactions(startDate, endDate, transactions) {
 }
 
 function createGraph(storeId, timespan) {
+    if(!globals.stores[storeId]['transactions'].length) {
+        var $overviewWrapper = $('#overview-wrapper');
+        $overviewWrapper.append(emptyOverviewTemplate({}));
+        return;
+    }
+
     if(timespan == 'day') {
         var transactions = globals.stores[storeId]['transactions'];
         var startDate = new Date(transactions[0]['datetime']);

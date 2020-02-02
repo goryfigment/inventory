@@ -90,19 +90,13 @@ $(document).ready(function() {
     $('#store-container').append(storeItemTemplate({'stores': globals.stores}));
 
     var storeId = localStorage.getItem('clicked_store');
+    var $storeItem = $('.store[data-id="' + storeId + '"]');
 
-    if (storeId === null) {
-        var $storeItem = $('.store')[0];
-    } else {
-        $storeItem = $('.store[data-id="' + storeId + '"]');
+    if (storeId === null || !$storeItem.length) {
+        $storeItem = $('.store')[0];
     }
 
-    if($storeItem.length) {
-        $storeItem.click();
-    } else {
-        var $employeeWrapper = $('#employee-wrapper');
-        $employeeWrapper.append(employeeTemplate({'store': globals.stores[storeId]}));
-    }
+    $storeItem.click();
 });
 
 // POPUP //
@@ -164,7 +158,13 @@ $(document).on('click', '.store:not(.active)', function () {
     $this.addClass('active');
     localStorage.setItem("clicked_store", String(storeId));
     $employeeWrapper.empty();
-    $employeeWrapper.append(employeeTemplate({'store': globals.stores[storeId]}));
+    var store = globals.stores[storeId];
+
+    if(!store['employees'].length) {
+        delete store["employees"];
+    }
+
+    $employeeWrapper.append(employeeTemplate({'store': store}));
 });
 // STORE //
 
