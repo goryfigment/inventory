@@ -1,4 +1,4 @@
-Django==1.11.23
+Django==2.2.24
 django-webpack-loader
 django-sslify
 mysqlclient==1.3.12
